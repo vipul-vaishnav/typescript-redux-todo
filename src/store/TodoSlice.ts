@@ -37,17 +37,20 @@ const TodoSlice = createSlice({
       state.push(action.payload);
     },
 
-    removeTodo(state: Todo[], action: PayloadAction<string>): Todo[] {
+    removeTodo: (state: Todo[], action: PayloadAction<string>): Todo[] => {
       return state.filter((obj) => obj.id !== action.payload);
     },
 
-    // toggleCompleted(state: Todo[], action: PayloadAction<string>): boolean {
-    //   return !state.find((obj) => obj.id === action.payload)?.completed;
-    // },
+    clearTodos: (state: Todo[]): Todo[] => {
+      return [];
+    },
+
+    toggleStatus: (state: Todo[], action: PayloadAction<string>) => {},
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addTodo, removeTodo } = TodoSlice.actions;
+export const { addTodo, removeTodo, clearTodos, toggleStatus } =
+  TodoSlice.actions;
 
 export default TodoSlice.reducer;
