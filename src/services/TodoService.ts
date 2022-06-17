@@ -1,15 +1,22 @@
 import Todo from './../models/Todo';
 
-class TodoService {
-  private todos: Todo[] = [];
+interface TodoClassInterface {
+  todos: Todo[];
+  getAllTodos: () => Todo[];
+  addTodo: (todo: Todo) => void;
+  removeTodo: (id: string) => Todo[];
+  toggleCompleted: (id: string) => boolean;
+}
+
+class TodoService implements TodoClassInterface {
+  todos: Todo[] = [];
 
   getAllTodos(): Todo[] {
     return this.todos;
   }
 
-  addTodo(todo: Todo): Todo[] {
+  addTodo(todo: Todo): void {
     this.todos.push(todo);
-    return this.todos;
   }
 
   removeTodo(id: string): Todo[] {

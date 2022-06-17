@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import TodoService from './../services/TodoService';
 import Todo from './../models/Todo';
 
 const initialState: Todo[] = [
@@ -33,8 +32,8 @@ const TodoSlice = createSlice({
   name: 'Todo',
   initialState,
   reducers: {
-    addTodo: (state: Todo[], action: PayloadAction<Todo>): void => {
-      state.push(action.payload);
+    addTodo: (state: Todo[], action: PayloadAction<Todo>): Todo[] => {
+      return [...state, action.payload];
     },
 
     removeTodo: (state: Todo[], action: PayloadAction<string>): Todo[] => {
@@ -45,11 +44,18 @@ const TodoSlice = createSlice({
       return [];
     },
 
-    toggleStatus: (state: Todo[], action: PayloadAction<string>) => {},
+    toggleStatus: (state: Todo[], action: PayloadAction<string>): void => {
+      const todo = state.find((obj) => obj.id === action.payload);
+      const index = state.findIndex((obj) => obj.id === action.payload);
+      if (todo?.completed === true) todo.completed = false;
+      else if (todo?.completed === false) todo.completed = true;
+      const todosPrev = state.slice(0, index);
+      const todosPost = state.slice(index + 1);
+      void [...todosPrev, todo, ...todosPost];
+    },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addTodo, removeTodo, clearTodos, toggleStatus } =
   TodoSlice.actions;
 
