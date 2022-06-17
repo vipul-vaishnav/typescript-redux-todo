@@ -2,7 +2,7 @@ interface Todo {
   id: string;
   title: string;
   description: string;
-  createdAt: Date;
+  createdAt: string;
   completed: boolean;
 }
 

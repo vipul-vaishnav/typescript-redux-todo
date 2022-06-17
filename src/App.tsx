@@ -2,36 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import NewTodo from './components/NewTodo';
 import TodoList from './components/TodoList';
-import TodoInterface from './models/Todo';
+import { useSelector } from 'react-redux';
+import { RootState } from './store/store';
 
 const App = () => {
   const [theme, setTheme] = useState<string | null>(null);
-  const [todos, setTodos] = useState<TodoInterface[]>([
-    {
-      id: '1',
-      title: 'This is a task',
-      description:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis, debitis eum laboriosam culpa temporibus dolores odio quam dolor totam quis?',
-      createdAt: new Date(),
-      completed: false,
-    },
-    {
-      id: '2',
-      title: 'This is another task',
-      description:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis, debitis eum laboriosam culpa temporibus dolores odio quam dolor totam quis?',
-      createdAt: new Date(),
-      completed: true,
-    },
-    {
-      id: '3',
-      title: 'This is one another task',
-      description:
-        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis, debitis eum laboriosam culpa temporibus dolores odio quam dolor totam quis?',
-      createdAt: new Date(),
-      completed: false,
-    },
-  ]);
+  const todos = useSelector((state: RootState) => state.Todos);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
